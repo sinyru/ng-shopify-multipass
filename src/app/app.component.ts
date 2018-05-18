@@ -44,25 +44,25 @@ export class AppComponent implements OnInit{
 
   onSignIn(username, password) {
     this.http.get(environment.usersDatabase)
-    .subscribe((data)=>{
-      data.users.find((x)=>{
-        if (x.identifier === username) {
-          const signInData = {
-            "email": x.email,
-            "password": password,
-            "password_confirmation": password
+    .subscribe((data:any)=>{
+        data.users.find((x)=>{
+          if (x.identifier === username) {
+            const signInData = {
+              "email": x.email,
+              "password": password,
+              "password_confirmation": password
+            }
+            this.http.post(environment.signInDatabase, {credentials: signInData}).toPromise()
+            .then(()=>{
+              const Multipassify = require('multipassify');
+              const multipassify = new Multipassify(environment.multipassSecret);
+              const customerData = {email: x.email};
+              const token = multipassify.encode(customerData);
+              const url = multipassify.generateUrl(customerData, "myshippingtest.myshopify.com");
+              window.location.href = url;
+            });
           }
-          this.http.post(environment.signInDatabase, {credentials: signInData}).toPromise()
-          .then(()=>{
-            const Multipassify = require('multipassify');
-            const multipassify = new Multipassify(environment.multipassSecret);
-            const customerData = {email: x.email};
-            const token = multipassify.encode(customerData);
-            const url = multipassify.generateUrl(customerData, "myshippingtest.myshopify.com");
-            window.location.href = url;
-          });
-        }
-      })
+        })
     });
 
   }

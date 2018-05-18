@@ -1,5 +1,5 @@
-<div id="login-box">
-<div class="left">
+<div id>
+<div>
   <h1>Sign up</h1>
   <form (submit)="onSignUp(username.value, email.value, password.value, confirmation.value,
                           first_name.value, last_name.value, address1.value, city.value, phone.value, zip.value)">
@@ -13,7 +13,20 @@
   <input type="text" placeholder="City" required #city/>
   <input type="text" placeholder="Phone" required #phone/>
   <input type="text" placeholder="Zip" required #zip/>
-  <button class="btn btn-primary" type='submit' id="submit">Sign me Up</button>
+  <button class="btn btn-primary" type='submit'>Sign me Up</button>
+  </form>
+</div>
+
+</div>
+
+
+<div>
+<div>
+  <h1>Sign In</h1>
+  <form (submit)="onSignIn(usernameSignin.value, passwordSignIn.value)">
+  <input type="text" name="usernameSignin" placeholder="Username" required #usernameSignin/>
+  <input type="password" name="passwordSignIn" placeholder="Password" required #passwordSignIn/>
+  <button class="btn btn-primary" type='submit'>Sign me In</button>
   </form>
 </div>
 

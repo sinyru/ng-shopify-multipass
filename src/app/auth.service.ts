@@ -33,7 +33,7 @@ export class AuthService {
       const url = multipassify.generateUrl(customerData, "myshippingtest.myshopify.com");
       return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then(() => {
-        window.location.href = url;
+        window.top.location.href = url;
       });
     });
   }
@@ -54,7 +54,7 @@ export class AuthService {
             const url = multipassify.generateUrl(customerData, "myshippingtest.myshopify.com");
             return this.afAuth.auth.signInWithEmailAndPassword(x.email, password)
             .then(()=>{
-              window.location.href = url;
+              window.top.location.href = url;
             });
           }
         })

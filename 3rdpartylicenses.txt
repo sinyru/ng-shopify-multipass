@@ -728,6 +728,10 @@ MIT
 MIT
 MIT
 
+ng4-loading-spinner@1.1.3
+MIT
+MIT
+
 css-loader@0.28.11
 MIT
 Copyright JS Foundation and other contributors

@@ -31,3 +31,14 @@
 </div>
 
 </div>
+
+<div>
+<div>
+  <h1>Forgot Password</h1>
+  <form (submit)="onResetPassword(emailResetPassword.value)">
+  <input type="text" name="emailResetPassword" placeholder="Email" required #emailResetPassword/>
+  <button class="btn btn-primary" type='submit'>Reset my Password</button>
+  </form>
+</div>
+
+</div>

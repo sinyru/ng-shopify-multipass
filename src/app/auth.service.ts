@@ -4,17 +4,20 @@ import { environment } from '../environments/environment';
 import 'rxjs/add/operator/toPromise';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private afAuth: AngularFireAuth, private http:HttpClient) { }
+  constructor(private afAuth: AngularFireAuth, private http:HttpClient,
+    private spinnerService: Ng4LoadingSpinnerService) { }
 
   onSignUpWithEmail(username, email, password, confirmation, first_name, last_name, address1, city, phone, zip) {
     const signUpData = {
       "identifier": username,
       "email": email
     }
+    this.spinnerService.show();
     this.http.post(environment.usersDatabase, {username: signUpData})
     .toPromise().then(()=>{
       const Multipassify = require('multipassify');
@@ -39,6 +42,7 @@ export class AuthService {
   }
 
   onSignInWithUsername(username, password) {
+    this.spinnerService.show();
     this.http.get(environment.usersDatabase)
     .subscribe((data:any)=>{
         data.find((x)=>{
@@ -63,8 +67,12 @@ export class AuthService {
 
   resetPassword(email: string) {
     var auth = firebase.auth();
+    this.spinnerService.show();
     return auth.sendPasswordResetEmail(email)
-      .then(() => console.log("email sent"))
+      .then(() => {
+        console.log("email sent");
+        this.spinnerService.hide();
+      })
       .catch((error) => console.log(error))
   }
 

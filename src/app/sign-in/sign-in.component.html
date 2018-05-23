@@ -1,10 +1,10 @@
 <div>
-  <h1>Sign In</h1>
+  <h1>LOGIN</h1>
   <form (submit)="onSignIn(usernameSignin.value, passwordSignIn.value)">
     <input type="text" name="usernameSignin" placeholder="Username" required #usernameSignin/>
     <input type="password" name="passwordSignIn" placeholder="Password" required #passwordSignIn/>
-    <button class="btn btn-primary" type='submit'>Sign me In</button>
+    <button class="btn btn-primary" type='submit'>Sign In</button>
   </form>
 </div>
 
-<button [routerLink]="['/reset-password']">Forgot your password?</button>
+<a [routerLink]="['/reset-password']">Forgot your password?</a>

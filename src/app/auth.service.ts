@@ -11,6 +11,11 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth, private http:HttpClient,
     private spinnerService: Ng4LoadingSpinnerService) { }
+    signInMessage: string = '';
+    signUpMessage: string = '';
+    resetPasswordMessage: string = 'We will send you an email to reset your password.';
+    isEmailValid: boolean = false;
+    resetPasswordFailEmail: string = '';
 
   onSignUpWithEmail(username, email, password, confirmation, first_name, last_name, address1, city, phone, zip) {
     const signUpData = {
@@ -38,6 +43,10 @@ export class AuthService {
       .then(() => {
         window.top.location.href = url;
       });
+    })
+    .catch((error)=>{
+      this.signUpMessage = 'Please fill in all blanks.';
+      this.spinnerService.hide();
     });
   }
 
@@ -60,6 +69,9 @@ export class AuthService {
             .then(()=>{
               window.top.location.href = url;
             });
+          } else {
+            this.signInMessage = 'Invalid username or password.';
+            this.spinnerService.hide();
           }
         })
     });
@@ -67,13 +79,16 @@ export class AuthService {
 
   resetPassword(email: string) {
     var auth = firebase.auth();
-    this.spinnerService.show();
     return auth.sendPasswordResetEmail(email)
       .then(() => {
-        console.log("email sent");
-        this.spinnerService.hide();
+        this.isEmailValid = true;
+        this.resetPasswordMessage = 'Instructions has been sent to the submitted email.';
+        this.resetPasswordFailEmail = '';
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        this.resetPasswordMessage = '';
+        this.resetPasswordFailEmail = 'The email you have submitted is invalid or can\'t found in the database.';
+      })
   }
 
 }

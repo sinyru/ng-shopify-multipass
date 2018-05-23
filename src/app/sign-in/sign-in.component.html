@@ -1,5 +1,6 @@
 <div>
   <h1>LOGIN</h1>
+  <p>{{authService.signInMessage}}</p>
   <form (submit)="onSignIn(usernameSignin.value, passwordSignIn.value)">
     <input type="text" name="usernameSignin" placeholder="Username" required #usernameSignin/>
     <input type="password" name="passwordSignIn" placeholder="Password" required #passwordSignIn/>

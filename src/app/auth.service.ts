@@ -69,11 +69,10 @@ export class AuthService {
             .then(()=>{
               window.top.location.href = url;
             });
-          } else {
-            this.signInMessage = 'Invalid username or password.';
-            this.spinnerService.hide();
           }
-        })
+        });
+        this.signInMessage = 'Invalid username or password.';
+        this.spinnerService.hide();
     });
   }
 

@@ -68,11 +68,17 @@ export class AuthService {
             return this.afAuth.auth.signInWithEmailAndPassword(x.email, password)
             .then(()=>{
               window.top.location.href = url;
+            })
+            .catch(()=>{
+              this.signInMessage = 'Invalid username or password.';
+              this.spinnerService.hide();
             });
           }
         });
-        this.signInMessage = 'Invalid username or password.';
-        this.spinnerService.hide();
+        if (data.every((x)=>{return x.identifier !== username})) {
+          this.signInMessage = 'Invalid username or password.';
+          this.spinnerService.hide();
+        }
     });
   }
 

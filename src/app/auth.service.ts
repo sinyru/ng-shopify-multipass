@@ -74,8 +74,8 @@ export class AuthService {
               this.spinnerService.hide();
             });
           }
-        });
-        if (data.every((x)=>{return x.identifier !== username})) {
+        })
+        if (data.every((x)=> x.identifier !== username )) {
           this.signInMessage = 'Invalid username or password.';
           this.spinnerService.hide();
         }
